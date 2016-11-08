@@ -48,5 +48,59 @@ object Maps {
 
     }
 
+
+    object Usage {
+        fun getOrElse() {
+            val map = mutableMapOf<String, Int?>()
+            println(map.getOrElse("x") { 1 }) // prints: 1
+
+            map["x"] = 3
+            println(map.getOrElse("x") { 1 }) // prints: 3
+
+            map["x"] = null
+            println(map.getOrElse("x") { 1 }) // prints: 1
+        }
+
+        fun getOrPut() {
+            val map = mutableMapOf<String, Int?>()
+            println(map.getOrPut("x") { 2 }) // prints: 2
+            println(map.getOrPut("x") { 3 }) // prints: 2
+
+            println(map.getOrPut("y") { null }) // prints: null
+            println(map.getOrPut("y") { 42 })   // prints: 42
+        }
+
+        fun forOverEntries() {
+            val map = mapOf("beverage" to 2.7, "meal" to 12.4, "dessert" to 5.8)
+
+            for ((key, value) in map) {
+                println("$key - $value") // prints: beverage - 2.7
+                                         // prints: meal - 12.4
+                                         // prints: dessert - 5.8
+            }
+
+        }
+    }
+
+    object Transforms {
+
+        fun mapKeys() {
+            val map1 = mapOf("beer" to 2.7, "bisquit" to 5.8)
+            val map2 = map1.mapKeys { it.key.length }
+            println(map2) // prints: { 4=2.7, 7=5.8}
+
+            val map3 = map1.mapKeys { it.key.take(1) }
+            println(map3) // prints: { b=5.8 }
+        }
+
+        fun mapValues() {
+            val map1 = mapOf("beverage" to 2.7, "meal" to 12.4)
+            val map2 = map1.mapValues { it.value.toString() + "$" }
+
+            println(map2) // prints: { beverage=2.7$, meal=12.4$ }
+        }
+
+    }
+
 }
 

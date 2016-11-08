@@ -195,7 +195,7 @@ public inline fun <K, V> Map.Entry<K, V>.toPair(): Pair<K, V> = Pair(key, value)
 /**
  * Returns the value for the given key, or the result of the [defaultValue] function if there was no entry for the given key.
  *
- * @sample test.collections.MapTest.getOrElse
+ * @sample samples.collections.Maps.Usage.getOrElse
  */
 @kotlin.internal.InlineOnly
 public inline fun <K, V> Map<K, V>.getOrElse(key: K, defaultValue: () -> V): V = get(key) ?: defaultValue()
@@ -216,7 +216,7 @@ internal inline fun <K, V> Map<K, V>.getOrElseNullable(key: K, defaultValue: () 
  * Returns the value for the given key. If the key is not found in the map, calls the [defaultValue] function,
  * puts its result into the map under the given key and returns it.
  *
- * @sample test.collections.MapTest.getOrPut
+ * @sample samples.collections.Maps.Usage.getOrPut
  */
 public inline fun <K, V> MutableMap<K, V>.getOrPut(key: K, defaultValue: () -> V): V {
     val value = get(key)
@@ -232,7 +232,7 @@ public inline fun <K, V> MutableMap<K, V>.getOrPut(key: K, defaultValue: () -> V
 /**
  * Returns an [Iterator] over the entries in the [Map].
  *
- * @sample test.collections.MapTest.iterateWithProperties
+ * @sample samples.collections.Maps.Usage.forOverEntries
  */
 @kotlin.internal.InlineOnly
 public inline operator fun <K, V> Map<out K, V>.iterator(): Iterator<Map.Entry<K, V>> = entries.iterator()
@@ -298,7 +298,7 @@ public fun <K, V> MutableMap<in K, in V>.putAll(pairs: Sequence<Pair<K,V>>): Uni
  *
  * The returned map preserves the entry iteration order of the original map.
  *
- * @sample test.collections.MapTest.mapValues
+ * @sample samples.collections.Maps.Transforms.mapValues
  */
 @Suppress("NON_PUBLIC_CALL_FROM_PUBLIC_INLINE")
 public inline fun <K, V, R> Map<out K, V>.mapValues(transform: (Map.Entry<K, V>) -> R): Map<K, R> {
@@ -314,7 +314,7 @@ public inline fun <K, V, R> Map<out K, V>.mapValues(transform: (Map.Entry<K, V>)
  *
  * The returned map preserves the entry iteration order of the original map.
  *
- * @sample test.collections.MapTest.mapKeys
+ * @sample samples.collections.Maps.Transforms.mapKeys
  */
 @Suppress("NON_PUBLIC_CALL_FROM_PUBLIC_INLINE")
 public inline fun <K, V, R> Map<out K, V>.mapKeys(transform: (Map.Entry<K, V>) -> R): Map<R, V> {
