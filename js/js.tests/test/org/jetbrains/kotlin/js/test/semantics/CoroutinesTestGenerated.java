@@ -349,6 +349,12 @@ public class CoroutinesTestGenerated extends AbstractCoroutinesTest {
             doTest(fileName);
         }
 
+        @TestMetadata("throwFromCatch.kt")
+        public void testThrowFromCatch() throws Exception {
+            String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/controlFlow/throwFromCatch.kt");
+            doTest(fileName);
+        }
+
         @TestMetadata("whileStatement.kt")
         public void testWhileStatement() throws Exception {
             String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/box/coroutines/controlFlow/whileStatement.kt");
