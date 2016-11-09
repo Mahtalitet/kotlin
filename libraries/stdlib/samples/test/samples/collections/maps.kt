@@ -1,75 +1,89 @@
 package samples.collections
 
+import samples.*
+import kotlin.test.*
 import java.util.*
 
-object Maps {
+@RunWith(Enclosed::class)
+class Maps {
 
-    object Instantiation {
+    class Instantiation {
 
+        @Sample
         fun mapFromPairs() {
             val map = mapOf(1 to "x", 2 to "y", -1 to "zz")
-            println(map)
+            assertPrints(map, "{1=x, 2=y, -1=zz}")
         }
 
+        @Sample
         fun mutableMapFromPairs() {
             val map = mutableMapOf(1 to "x", 2 to "y", -1 to "zz")
-            println(map)
+            assertPrints(map, "{1=x, 2=y, -1=zz}")
 
             map[1] = "a"
-            println(map)
+            assertPrints(map, "{1=a, 2=y, -1=zz}")
         }
 
+        @Sample
         fun hashMapFromPairs() {
             val map: HashMap<Int, String> = hashMapOf(1 to "x", 2 to "y", -1 to "zz")
-            println(map)
+            assertPrints(map, "{-1=zz, 1=x, 2=y}")
         }
 
+        @Sample
         fun linkedMapFromPairs() {
             val map: LinkedHashMap<Int, String> = linkedMapOf(1 to "x", 2 to "y", -1 to "zz")
-            println(map)
+            assertPrints(map, "{1=x, 2=y, -1=zz}")
         }
 
+        @Sample
         fun emptyReadOnlyMap() {
             val map = emptyMap<String, Int>()
-            println("Map $map is empty: ${map.isEmpty()}")
+            assertTrue(map.isEmpty())
 
             val anotherMap = mapOf<String, Int>()
-            println("Empty maps are equal: ${map == anotherMap}")
+            assertTrue(map == anotherMap, "Empty maps are equal")
         }
 
+        @Sample
         fun emptyMutableMap() {
             val map = mutableMapOf<Int, Any?>()
-            println("Map is empty: ${map.isEmpty()}")
+            assertTrue(map.isEmpty())
 
             map[1] = "x"
             map[2] = 1.05
-            println("Now map contains something: $map")
+            // Now map contains something:
+            assertPrints(map, "{1=x, 2=1.05}")
         }
 
     }
 
 
-    object Usage {
+    class Usage {
+
+        @Sample
         fun getOrElse() {
             val map = mutableMapOf<String, Int?>()
-            println(map.getOrElse("x") { 1 }) // prints: 1
+            assertPrints(map.getOrElse("x") { 1 }, "1")
 
             map["x"] = 3
-            println(map.getOrElse("x") { 1 }) // prints: 3
+            assertPrints(map.getOrElse("x") { 1 }, "3")
 
             map["x"] = null
-            println(map.getOrElse("x") { 1 }) // prints: 1
+            assertPrints(map.getOrElse("x") { 1 }, "1")
         }
 
+        @Sample
         fun getOrPut() {
             val map = mutableMapOf<String, Int?>()
-            println(map.getOrPut("x") { 2 }) // prints: 2
-            println(map.getOrPut("x") { 3 }) // prints: 2
+            assertPrints(map.getOrPut("x") { 2 }, "2")
+            assertPrints(map.getOrPut("x") { 3 }, "2") // still
 
-            println(map.getOrPut("y") { null }) // prints: null
-            println(map.getOrPut("y") { 42 })   // prints: 42
+            assertPrints(map.getOrPut("y") { null }, "null")
+            assertPrints(map.getOrPut("y") { 42 }, "42") // but!
         }
 
+        @Sample
         fun forOverEntries() {
             val map = mapOf("beverage" to 2.7, "meal" to 12.4, "dessert" to 5.8)
 
@@ -82,22 +96,24 @@ object Maps {
         }
     }
 
-    object Transforms {
+    class Transformations {
 
+        @Sample
         fun mapKeys() {
             val map1 = mapOf("beer" to 2.7, "bisquit" to 5.8)
             val map2 = map1.mapKeys { it.key.length }
-            println(map2) // prints: { 4=2.7, 7=5.8}
+            assertPrints(map2, "{4=2.7, 7=5.8}")
 
             val map3 = map1.mapKeys { it.key.take(1) }
-            println(map3) // prints: { b=5.8 }
+            assertPrints(map3, "{b=5.8}")
         }
 
+        @Sample
         fun mapValues() {
             val map1 = mapOf("beverage" to 2.7, "meal" to 12.4)
             val map2 = map1.mapValues { it.value.toString() + "$" }
 
-            println(map2) // prints: { beverage=2.7$, meal=12.4$ }
+            assertPrints(map2, "{beverage=2.7$, meal=12.4$}")
         }
 
     }
