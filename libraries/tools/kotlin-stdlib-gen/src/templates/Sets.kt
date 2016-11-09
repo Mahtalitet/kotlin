@@ -18,7 +18,7 @@ fun sets(): List<GenericFunction> {
         body {
             """
             return when (this) {
-                is Collection<T> -> LinkedHashSet<T>(this)
+                is Collection<T> -> LinkedHashSet(this)
                 else -> toCollection(LinkedHashSet<T>())
             }
             """
